@@ -1,0 +1,71 @@
+{
+  "scenario": "S07",
+  "title": "The same request during a Wi-Fi outage",
+  "status_profile": "wifi_outage",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "Google AI Studio (Gemini)",
+  "storage": {
+    "conversation_state": "storage/conversations.sqlite (SqliteSaver, by thread_id)",
+    "user_memory": "storage/user_memory.sqlite (by user_id)"
+  },
+  "events": [
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "s07",
+      "message": "I enabled Wi-Fi and forgot the saved network, but Campus-Demo still will not connect. Check whether Wi-Fi is down. If it is operating, prepare a ticket about this problem.",
+      "reply": "The Wi-Fi service is currently experiencing an outage. As the service is not operating, I have not created a ticket for you. I do not have an estimated time for when it will be back online.",
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "state_update": {
+            "user_memory": {}
+          }
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 1
+          },
+          "model_tool_requests": [
+            {
+              "tool": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ]
+        },
+        {
+          "node": "tools",
+          "tool_results": [
+            {
+              "tool": "check_service_status",
+              "result": "{\"service\": \"wifi\", \"status_profile\": \"wifi_outage\", \"status\": \"outage\", \"message\": \"The demo Wi-Fi service is unavailable across campus. The fixture gives no repair time.\"}"
+            }
+          ]
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 2
+          },
+          "model_text": "The Wi-Fi service is currently experiencing an outage. As the service is not operating, I have not created a ticket for you. I do not have an estimated time for when it will be back online."
+        }
+      ],
+      "sources": {
+        "reference_file": [
+          "check_service_status"
+        ],
+        "conversation_state": "none (new thread)",
+        "user_memory_loaded": {},
+        "user_memory_written": []
+      },
+      "tickets": [],
+      "model_calls": 2,
+      "loop_limit_reached": false
+    }
+  ],
+  "ticket_files": [],
+  "loop_limit_reached": false
+}

@@ -1,0 +1,108 @@
+[
+  {
+    "tool": "find_instructions",
+    "args": {
+      "topic": "wifi"
+    },
+    "result": {
+      "status": "found",
+      "topic": "wifi",
+      "title": "Connect to the practice campus network",
+      "steps": [
+        "Check that Wi-Fi is enabled and airplane mode is off.",
+        "Select the fictional Campus-Demo network.",
+        "If connection fails, forget the saved network and try connecting again.",
+        "If the problem remains, check the service status before preparing a ticket."
+      ],
+      "instruction_id": "GUIDE-WIFI"
+    }
+  },
+  {
+    "tool": "find_instructions",
+    "args": {
+      "topic": "printer"
+    },
+    "result": {
+      "status": "not_found",
+      "topic": "printer",
+      "available_topics": [
+        "wifi",
+        "password"
+      ]
+    }
+  },
+  {
+    "tool": "check_service_status",
+    "args": {
+      "service": "wifi"
+    },
+    "result": {
+      "service": "wifi",
+      "status_profile": "normal",
+      "status": "operational",
+      "message": "The demo Wi-Fi service has no reported outage."
+    }
+  },
+  {
+    "tool": "check_service_status",
+    "args": {
+      "service": "account_recovery"
+    },
+    "result": {
+      "service": "account_recovery",
+      "status_profile": "normal",
+      "status": "operational",
+      "message": "The demo account-recovery service is operating."
+    }
+  },
+  {
+    "tool": "prepare_ticket",
+    "args": {
+      "category": "wifi",
+      "summary": "",
+      "steps_tried": []
+    },
+    "result": {
+      "status": "missing_information",
+      "missing": [
+        "problem description",
+        "steps already tried"
+      ],
+      "instruction": "Ask the user for the missing details. Do not invent them."
+    }
+  },
+  {
+    "tool": "prepare_ticket",
+    "args": {
+      "category": "wifi",
+      "summary": "Campus-Demo will not connect.",
+      "steps_tried": [
+        "enabled Wi-Fi",
+        "forgot saved network"
+      ],
+      "service_status": "operational"
+    },
+    "result": {
+      "status": "draft_saved",
+      "ticket_file": "tickets\\TKT-20261104-193054-e99538.json",
+      "ticket": {
+        "ticket_id": "TKT-20261104-193054-e99538",
+        "status": "draft",
+        "user_id": "demo-user-a",
+        "thread_id": "tools-demo",
+        "category": "wifi",
+        "summary": "Campus-Demo will not connect.",
+        "steps_tried": [
+          "enabled Wi-Fi",
+          "forgot saved network"
+        ],
+        "service_status": "operational",
+        "status_profile": "normal",
+        "reference_ids": [
+          "GUIDE-WIFI"
+        ]
+      },
+      "note": "Local draft only. Nothing was sent."
+    }
+  }
+]

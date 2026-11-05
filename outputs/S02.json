@@ -1,0 +1,43 @@
+{
+  "scenario": "S02",
+  "graph_variant": "original",
+  "status_profile": "normal",
+  "user_id": "demo-user-a",
+  "thread_id": "s02",
+  "message": "I forgot my PASSWORD.",
+  "nodes_visited": [
+    "read_request",
+    "password_help"
+  ],
+  "steps": [
+    {
+      "node": "read_request",
+      "update": {
+        "category": "password"
+      },
+      "state_after": {
+        "message": "I forgot my PASSWORD.",
+        "category": "password"
+      }
+    },
+    {
+      "node": "password_help",
+      "update": {
+        "reply": "Recover access to the practice account [GUIDE-PASSWORD]\n  1. Open the practice sign-in screen and choose Forgot password.\n  2. Follow the recovery instructions shown by the practice application.\n  3. If recovery is unavailable, prepare a ticket describing the error.\n  4. Never include a password or recovery code in a ticket."
+      },
+      "state_after": {
+        "message": "I forgot my PASSWORD.",
+        "category": "password",
+        "reply": "Recover access to the practice account [GUIDE-PASSWORD]\n  1. Open the practice sign-in screen and choose Forgot password.\n  2. Follow the recovery instructions shown by the practice application.\n  3. If recovery is unavailable, prepare a ticket describing the error.\n  4. Never include a password or recovery code in a ticket."
+      }
+    }
+  ],
+  "sources": {
+    "reference_file": "data/helpdesk.json (help nodes only)",
+    "conversation_state": "not used in Part 1",
+    "user_memory": "not used in Part 1"
+  },
+  "final_reply": "Recover access to the practice account [GUIDE-PASSWORD]\n  1. Open the practice sign-in screen and choose Forgot password.\n  2. Follow the recovery instructions shown by the practice application.\n  3. If recovery is unavailable, prepare a ticket describing the error.\n  4. Never include a password or recovery code in a ticket.",
+  "ticket_file": null,
+  "loop_limit_reached": false
+}

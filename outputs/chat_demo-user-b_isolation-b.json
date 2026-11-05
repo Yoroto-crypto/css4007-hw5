@@ -1,0 +1,34 @@
+[
+  {
+    "time": "2026-11-05T20:17:41",
+    "user_id": "demo-user-b",
+    "thread_id": "isolation-b",
+    "status_profile": "normal",
+    "message": "Have I told you a preferred language or a previous problem?",
+    "reply": "Nothing has been recorded for you regarding a preferred language or a previous problem.",
+    "steps": [
+      {
+        "node": "load_user_memory",
+        "state_update": {
+          "user_memory": {}
+        }
+      },
+      {
+        "node": "agent",
+        "state_update": {
+          "model_calls": 1
+        },
+        "model_text": "Nothing has been recorded for you regarding a preferred language or a previous problem."
+      }
+    ],
+    "sources": {
+      "reference_file": [],
+      "conversation_state": "none (new thread)",
+      "user_memory_loaded": {},
+      "user_memory_written": []
+    },
+    "tickets": [],
+    "model_calls": 1,
+    "loop_limit_reached": false
+  }
+]

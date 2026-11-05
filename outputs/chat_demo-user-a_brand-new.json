@@ -1,0 +1,38 @@
+[
+  {
+    "time": "2026-11-05T20:17:27",
+    "user_id": "demo-user-a",
+    "thread_id": "brand-new",
+    "status_profile": "normal",
+    "message": "Which language did I ask you to use?",
+    "reply": "Сіз маған қазақ тілін қолдануды сұрадыңыз.",
+    "steps": [
+      {
+        "node": "load_user_memory",
+        "state_update": {
+          "user_memory": {
+            "language": "Kazakh"
+          }
+        }
+      },
+      {
+        "node": "agent",
+        "state_update": {
+          "model_calls": 1
+        },
+        "model_text": "Сіз маған қазақ тілін қолдануды сұрадыңыз."
+      }
+    ],
+    "sources": {
+      "reference_file": [],
+      "conversation_state": "none (new thread)",
+      "user_memory_loaded": {
+        "language": "Kazakh"
+      },
+      "user_memory_written": []
+    },
+    "tickets": [],
+    "model_calls": 1,
+    "loop_limit_reached": false
+  }
+]

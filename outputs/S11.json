@@ -1,0 +1,126 @@
+{
+  "scenario": "S11",
+  "title": "Persist and recall after restart",
+  "status_profile": "normal",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "Google AI Studio (Gemini)",
+  "storage": {
+    "conversation_state": "storage/conversations.sqlite (SqliteSaver, by thread_id)",
+    "user_memory": "storage/user_memory.sqlite (by user_id)"
+  },
+  "events": [
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "restart-a",
+      "message": "Please remember that I prefer replies in Kazakh. My issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+      "reply": "Wi-Fi мәселесі бойынша нұсқаулық:\n\n**Тақырып: Тәжірибелік кампус желісіне қосылу**\n\n1. Wi-Fi қосулы екенін және ұшақ режимі өшірулі екенін тексеріңіз.\n2. \"Campus-Demo\" желісін таңдаңыз.\n3. Егер қосылым сәтсіз болса, сақталған желіні ұмытып (forget), қайта қосылып көріңіз.\n4. Егер мәселе шешілмесе, билет дайындамас бұрын қызмет күйін тексеріңіз.\n\nБұл қадамдар көмектесті ме? Егер жоқ болса, билет дайындау үшін қызмет күйін тексеруімді қалайсыз ба?",
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "state_update": {
+            "user_memory": {}
+          }
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 1
+          },
+          "model_tool_requests": [
+            {
+              "tool": "remember_preference",
+              "args": {
+                "name": "language",
+                "value": "Kazakh"
+              }
+            },
+            {
+              "tool": "find_instructions",
+              "args": {
+                "topic": "wifi"
+              }
+            }
+          ]
+        },
+        {
+          "node": "tools",
+          "tool_results": [
+            {
+              "tool": "remember_preference",
+              "result": "{\"status\": \"saved\", \"name\": \"language\", \"value\": \"Kazakh\"}"
+            },
+            {
+              "tool": "find_instructions",
+              "result": "{\"status\": \"found\", \"topic\": \"wifi\", \"title\": \"Connect to the practice campus network\", \"steps\": [\"Check that Wi-Fi is enabled and airplane mode is off.\", \"Select the fictional Campus-Demo network.\", \"If connection fails, forget the saved network and try connecting again.\", \"If the problem remains, check the service status before preparing a ticket.\"], \"instruction_id\": \"GUIDE-WIFI\"}"
+            }
+          ]
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 2
+          },
+          "model_text": "Wi-Fi мәселесі бойынша нұсқаулық:\n\n**Тақырып: Тәжірибелік кампус желісіне қосылу**\n\n1. Wi-Fi қосулы екенін және ұшақ режимі өшірулі екенін тексеріңіз.\n2. \"Campus-Demo\" желісін таңдаңыз.\n3. Егер қосылым сәтсіз болса, сақталған желіні ұмытып (forget), қайта қосылып көріңіз.\n4. Егер мәселе шешілмесе, билет дайындамас бұрын қызмет күйін тексеріңіз.\n\nБұл қадамдар көмектесті ме? Егер жоқ болса, билет дайындау үшін қызмет күйін тексеруімді қалайсыз ба?"
+        }
+      ],
+      "sources": {
+        "reference_file": [
+          "find_instructions"
+        ],
+        "conversation_state": "none (new thread)",
+        "user_memory_loaded": {},
+        "user_memory_written": [
+          {
+            "name": "language",
+            "value": "Kazakh"
+          }
+        ]
+      },
+      "tickets": [],
+      "model_calls": 2,
+      "loop_limit_reached": false
+    },
+    {
+      "action": "restart_process",
+      "preserve_local_storage": true
+    },
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "restart-a",
+      "message": "Which problem and steps did we discuss?",
+      "reply": "Біз сіздің Wi-Fi желісіне қосыла алмай жатқаныңызды талқыладық. Сіз Wi-Fi-ды қосып, қайта қосылуға әрекеттенгеніңізді, бірақ оның әлі де жұмыс істемей тұрғанын айттыңыз.",
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "state_update": {
+            "user_memory": {
+              "language": "Kazakh"
+            }
+          }
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 1
+          },
+          "model_text": "Біз сіздің Wi-Fi желісіне қосыла алмай жатқаныңызды талқыладық. Сіз Wi-Fi-ды қосып, қайта қосылуға әрекеттенгеніңізді, бірақ оның әлі де жұмыс істемей тұрғанын айттыңыз."
+        }
+      ],
+      "sources": {
+        "reference_file": [],
+        "conversation_state": "5 earlier messages saved for this thread_id",
+        "user_memory_loaded": {
+          "language": "Kazakh"
+        },
+        "user_memory_written": []
+      },
+      "tickets": [],
+      "model_calls": 1,
+      "loop_limit_reached": false
+    }
+  ],
+  "ticket_files": [],
+  "loop_limit_reached": false
+}

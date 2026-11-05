@@ -1,0 +1,43 @@
+{
+  "scenario": "S05",
+  "graph_variant": "with_clarification",
+  "status_profile": "normal",
+  "user_id": "demo-user-a",
+  "thread_id": "s05",
+  "message": "My Wi-Fi password does not work.",
+  "nodes_visited": [
+    "read_request",
+    "clarify_problem"
+  ],
+  "steps": [
+    {
+      "node": "read_request",
+      "update": {
+        "category": "both"
+      },
+      "state_after": {
+        "message": "My Wi-Fi password does not work.",
+        "category": "both"
+      }
+    },
+    {
+      "node": "clarify_problem",
+      "update": {
+        "reply": "Is the problem connecting to Wi-Fi, or recovering your account password? Which one would you like to solve first?"
+      },
+      "state_after": {
+        "message": "My Wi-Fi password does not work.",
+        "category": "both",
+        "reply": "Is the problem connecting to Wi-Fi, or recovering your account password? Which one would you like to solve first?"
+      }
+    }
+  ],
+  "sources": {
+    "reference_file": "data/helpdesk.json (help nodes only)",
+    "conversation_state": "not used in Part 1",
+    "user_memory": "not used in Part 1"
+  },
+  "final_reply": "Is the problem connecting to Wi-Fi, or recovering your account password? Which one would you like to solve first?",
+  "ticket_file": null,
+  "loop_limit_reached": false
+}

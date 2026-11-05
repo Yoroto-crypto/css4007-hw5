@@ -1,0 +1,43 @@
+{
+  "scenario": "S04",
+  "graph_variant": "original",
+  "status_profile": "normal",
+  "user_id": "demo-user-a",
+  "thread_id": "s04",
+  "message": "My Wi-Fi password does not work.",
+  "nodes_visited": [
+    "read_request",
+    "wifi_help"
+  ],
+  "steps": [
+    {
+      "node": "read_request",
+      "update": {
+        "category": "wifi"
+      },
+      "state_after": {
+        "message": "My Wi-Fi password does not work.",
+        "category": "wifi"
+      }
+    },
+    {
+      "node": "wifi_help",
+      "update": {
+        "reply": "Connect to the practice campus network [GUIDE-WIFI]\n  1. Check that Wi-Fi is enabled and airplane mode is off.\n  2. Select the fictional Campus-Demo network.\n  3. If connection fails, forget the saved network and try connecting again.\n  4. If the problem remains, check the service status before preparing a ticket."
+      },
+      "state_after": {
+        "message": "My Wi-Fi password does not work.",
+        "category": "wifi",
+        "reply": "Connect to the practice campus network [GUIDE-WIFI]\n  1. Check that Wi-Fi is enabled and airplane mode is off.\n  2. Select the fictional Campus-Demo network.\n  3. If connection fails, forget the saved network and try connecting again.\n  4. If the problem remains, check the service status before preparing a ticket."
+      }
+    }
+  ],
+  "sources": {
+    "reference_file": "data/helpdesk.json (help nodes only)",
+    "conversation_state": "not used in Part 1",
+    "user_memory": "not used in Part 1"
+  },
+  "final_reply": "Connect to the practice campus network [GUIDE-WIFI]\n  1. Check that Wi-Fi is enabled and airplane mode is off.\n  2. Select the fictional Campus-Demo network.\n  3. If connection fails, forget the saved network and try connecting again.\n  4. If the problem remains, check the service status before preparing a ticket.",
+  "ticket_file": null,
+  "loop_limit_reached": false
+}

@@ -1,0 +1,135 @@
+{
+  "scenario": "S09",
+  "title": "Missing ticket details",
+  "status_profile": "normal",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "Google AI Studio (Gemini)",
+  "storage": {
+    "conversation_state": "storage/conversations.sqlite (SqliteSaver, by thread_id)",
+    "user_memory": "storage/user_memory.sqlite (by user_id)"
+  },
+  "events": [
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "s09",
+      "message": "Prepare a support ticket.",
+      "reply": "I can certainly help you prepare a local ticket draft. To do so, could you please tell me what the problem is and what steps you have already tried to resolve it?",
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "state_update": {
+            "user_memory": {}
+          }
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 1
+          },
+          "model_text": "I can certainly help you prepare a local ticket draft. To do so, could you please tell me what the problem is and what steps you have already tried to resolve it?"
+        }
+      ],
+      "sources": {
+        "reference_file": [],
+        "conversation_state": "none (new thread)",
+        "user_memory_loaded": {},
+        "user_memory_written": []
+      },
+      "tickets": [],
+      "model_calls": 1,
+      "loop_limit_reached": false
+    },
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "s09",
+      "message": "The issue is Wi-Fi. I enabled it and tried reconnecting, but it still fails.",
+      "reply": "I have prepared a local ticket draft for your Wi-Fi issue. The service is currently operational.\n\nThe ticket has been saved to: `tickets\\TKT-20261104-204345-d5c82f.json`\n\nPlease note that this is a local draft only and has not been sent to the IT department. Would you like me to show you the official troubleshooting guide for Wi-Fi?",
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "state_update": {
+            "user_memory": {}
+          }
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 1
+          },
+          "model_tool_requests": [
+            {
+              "tool": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ]
+        },
+        {
+          "node": "tools",
+          "tool_results": [
+            {
+              "tool": "check_service_status",
+              "result": "{\"service\": \"wifi\", \"status_profile\": \"normal\", \"status\": \"operational\", \"message\": \"The demo Wi-Fi service has no reported outage.\"}"
+            }
+          ]
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 2
+          },
+          "model_tool_requests": [
+            {
+              "tool": "prepare_ticket",
+              "args": {
+                "category": "wifi",
+                "service_status": "operational",
+                "steps_tried": [
+                  "enabled Wi-Fi",
+                  "tried reconnecting"
+                ],
+                "summary": "Wi-Fi connection fails"
+              }
+            }
+          ]
+        },
+        {
+          "node": "tools",
+          "tool_results": [
+            {
+              "tool": "prepare_ticket",
+              "result": "{\"status\": \"draft_saved\", \"ticket_file\": \"tickets\\\\TKT-20261104-204345-d5c82f.json\", \"ticket\": {\"ticket_id\": \"TKT-20261104-204345-d5c82f\", \"status\": \"draft\", \"user_id\": \"demo-user-a\", \"thread_id\": \"s09\", \"category\": \"wifi\", \"summary\": \"Wi-Fi connection fails\", \"steps_tried\": [\"enabled Wi-Fi\", \"tried reconnecting\"], \"service_status\": \"operational\", \"status_profile\": \"normal\", \"reference_ids\": [\"GUIDE-WIFI\"]}, \"note\": \"Local draft only. Nothing was sent.\"}"
+            }
+          ]
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 3
+          },
+          "model_text": "I have prepared a local ticket draft for your Wi-Fi issue. The service is currently operational.\n\nThe ticket has been saved to: `tickets\\TKT-20261104-204345-d5c82f.json`\n\nPlease note that this is a local draft only and has not been sent to the IT department. Would you like me to show you the official troubleshooting guide for Wi-Fi?"
+        }
+      ],
+      "sources": {
+        "reference_file": [
+          "check_service_status"
+        ],
+        "conversation_state": "2 earlier messages saved for this thread_id",
+        "user_memory_loaded": {},
+        "user_memory_written": []
+      },
+      "tickets": [
+        "tickets\\TKT-20261104-204345-d5c82f.json"
+      ],
+      "model_calls": 3,
+      "loop_limit_reached": false
+    }
+  ],
+  "ticket_files": [
+    "tickets\\TKT-20261104-204345-d5c82f.json"
+  ],
+  "loop_limit_reached": false
+}

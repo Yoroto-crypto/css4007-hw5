@@ -1,0 +1,71 @@
+{
+  "scenario": "S08",
+  "title": "Status source unavailable",
+  "status_profile": "status_unavailable",
+  "model": "gemini-3.1-flash-lite",
+  "provider": "Google AI Studio (Gemini)",
+  "storage": {
+    "conversation_state": "storage/conversations.sqlite (SqliteSaver, by thread_id)",
+    "user_memory": "storage/user_memory.sqlite (by user_id)"
+  },
+  "events": [
+    {
+      "action": "message",
+      "user_id": "demo-user-a",
+      "thread_id": "s08",
+      "message": "Check whether Wi-Fi is down. If it is operating, prepare a ticket. I already enabled Wi-Fi and reconnected, with no success.",
+      "reply": "I cannot confirm the current status of the Wi-Fi service. Would you like me to prepare a draft ticket explaining that the status could not be checked?",
+      "steps": [
+        {
+          "node": "load_user_memory",
+          "state_update": {
+            "user_memory": {}
+          }
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 1
+          },
+          "model_tool_requests": [
+            {
+              "tool": "check_service_status",
+              "args": {
+                "service": "wifi"
+              }
+            }
+          ]
+        },
+        {
+          "node": "tools",
+          "tool_results": [
+            {
+              "tool": "check_service_status",
+              "result": "{\"service\": \"wifi\", \"status_profile\": \"status_unavailable\", \"status\": \"unknown\", \"message\": \"The demo Wi-Fi status source is unavailable.\"}"
+            }
+          ]
+        },
+        {
+          "node": "agent",
+          "state_update": {
+            "model_calls": 2
+          },
+          "model_text": "I cannot confirm the current status of the Wi-Fi service. Would you like me to prepare a draft ticket explaining that the status could not be checked?"
+        }
+      ],
+      "sources": {
+        "reference_file": [
+          "check_service_status"
+        ],
+        "conversation_state": "none (new thread)",
+        "user_memory_loaded": {},
+        "user_memory_written": []
+      },
+      "tickets": [],
+      "model_calls": 2,
+      "loop_limit_reached": false
+    }
+  ],
+  "ticket_files": [],
+  "loop_limit_reached": false
+}

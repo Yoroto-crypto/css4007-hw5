@@ -1,0 +1,17 @@
+{
+  "ticket_id": "TKT-20261104-204345-d5c82f",
+  "status": "draft",
+  "user_id": "demo-user-a",
+  "thread_id": "s09",
+  "category": "wifi",
+  "summary": "Wi-Fi connection fails",
+  "steps_tried": [
+    "enabled Wi-Fi",
+    "tried reconnecting"
+  ],
+  "service_status": "operational",
+  "status_profile": "normal",
+  "reference_ids": [
+    "GUIDE-WIFI"
+  ]
+}
